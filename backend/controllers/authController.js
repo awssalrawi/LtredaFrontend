@@ -101,8 +101,9 @@ exports.signInWithEmailAndPassword = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    message: `Welcome ${user.name}`,
     token,
-    data: user,
+    user,
   });
 });
 //*r

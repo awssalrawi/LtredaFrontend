@@ -9,6 +9,8 @@ import MyProfile from "./component/user/MyProfile";
 import ForgotPassword from "./component/user/ForgotPassword";
 import ProductDetails from "./component/products/ProductDetails";
 import SignUpCourse from "./component/authCourse/SignUpCourse";
+import SignInCourse from "./component/authCourse/SignInCourse";
+import ActivateCourse from "./component/authCourse/ActivateCourse";
 //*this is commment
 function App() {
   return (
@@ -16,7 +18,13 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/login" element={<SignInCourse />} />
+        <Route
+          exact
+          path="/user/active-account/:token"
+          element={<ActivateCourse />}
+        />
+        {/* <Route exact path="/login" element={<Login />} /> */}
         <Route exact path="/signup" element={<SignUpCourse />} />
         {/* <Route exact path="/signup" element={<Register />} /> */}
         <Route exact path="/me" element={<MyProfile />} />

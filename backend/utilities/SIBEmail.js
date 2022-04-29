@@ -25,18 +25,12 @@ const sendEmailWithSIB = async (option) => {
     },
 
     headers: {
-      'Content-type': 'application/json',
-      'api-key': `${process.env.SIB_EMAIL_KEY}`,
       accept: 'application/json',
+      'content-type': 'application/json',
+      'api-key': `${process.env.SIB_EMAIL_KEY}`,
     },
   };
 
-  //try {
-  //  const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
-  // console.log('API called successfully. Returned data: ' + data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
   await apiInstance.sendTransacEmail(sendSmtpEmail);
 };
 

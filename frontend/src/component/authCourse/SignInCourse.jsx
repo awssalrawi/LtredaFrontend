@@ -1,12 +1,13 @@
-import React, { Fragment, useState } from "react";
-//import { Link, useNavigate } from "react-router-dom";
+import React, { Fragment, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./toast-my-style.scss";
+import { authenticate, isAuthenticated } from "./helperCourse";
 
 const SignInCourse = () => {
-  //const navigate = Navigate();
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -14,6 +15,12 @@ const SignInCourse = () => {
   });
 
   const { email, password, buttonText } = data;
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/");
+    }
+  }, [isAuthenticated(), navigate]);
   const handelChange = (name) => (e) => {
     setData({ ...data, [name]: e.target.value });
   };
@@ -28,23 +35,25 @@ const SignInCourse = () => {
     };
     console.log(data);
     axios
-      .post("/api/v1/user/signup", data, config)
+      .post("/api/v1/user/signin", { email, password }, config)
       .then((res) => {
-        setData({
-          ...data,
-
-          email: "",
-          password: "",
-          buttonText: "Submitted",
-          loading: false,
+        authenticate(res, () => {
+          setData({
+            ...data,
+            email: "",
+            password: "",
+            buttonText: "Submitted",
+            loading: false,
+          });
+          console.log("Signin process", res);
+          toast.success(res.data.message);
+          //  navigate("/");
         });
-        console.log("SignUp process", res);
-        toast.success(res.data.message);
       })
       .catch((e) => {
         setData({ ...data, buttonText: "Submit" });
 
-        toast.error(e.response.data.message);
+        toast.error(e.response.data.message || e.response.data.error);
         console.log(e);
       });
   };
@@ -93,7 +102,8 @@ const SignInCourse = () => {
           autoClose={1000}
           pauseOnHover={true}
         />
-        <h1 className="text-center">Sign Up</h1>
+
+        <h1 className="text-center">SignIn</h1>
         <div className="col-md-6 offset-md-3">{signupForm()}</div>
       </div>
     </Fragment>

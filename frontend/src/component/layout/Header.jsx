@@ -1,7 +1,11 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles/header.scss";
+import { signUpCurrentUser } from "../authCourse/helperCourse";
+
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <Fragment>
       <div className="header header-phone">
@@ -64,6 +68,16 @@ const Header = () => {
                 <Link className="dropdown-item" to="#">
                   Contact Center
                 </Link>
+              </li>
+              <li>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    signUpCurrentUser(() => navigate("/"));
+                  }}
+                >
+                  Logout
+                </button>
               </li>
             </ul>
           </div>
