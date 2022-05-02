@@ -11,6 +11,8 @@ import ProductDetails from "./component/products/ProductDetails";
 import SignUpCourse from "./component/authCourse/SignUpCourse";
 import SignInCourse from "./component/authCourse/SignInCourse";
 import ActivateCourse from "./component/authCourse/ActivateCourse";
+import ActivateAccountMs from "./component/user/ActivateAccountMs";
+import PrivateRoute from "./component/authCourse/PrivateRoute";
 //*this is commment
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route exact path="/login" element={<SignInCourse />} />
+        <Route exact path="/activate" element={<ActivateAccountMs />} />
         <Route
           exact
           path="/user/active-account/:token"
@@ -27,9 +30,13 @@ function App() {
         {/* <Route exact path="/login" element={<Login />} /> */}
         <Route exact path="/signup" element={<SignUpCourse />} />
         {/* <Route exact path="/signup" element={<Register />} /> */}
-        <Route exact path="/me" element={<MyProfile />} />
+        {/* <Route exact path="/me" element={<MyProfile />} /> */}
         <Route exact path="/forgotpassword" element={<ForgotPassword />} />
         <Route exact path="/product" element={<ProductDetails />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route exact path="/me" element={<MyProfile />} />
+        </Route>
       </Routes>
       <Footer />
     </Router>

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const slugify = require("slugify");
+const mongoose = require('mongoose');
+const slugify = require('slugify');
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -13,15 +13,15 @@ const productSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
-      required: [true, "product must have a price"],
+      required: [true, 'product must have a price'],
     },
     quantity: {
       type: Number,
-      required: [true, "product must have a quantity"],
+      required: [true, 'product must have a quantity'],
     },
     description: {
       type: String,
-      required: [true, "product must have a description"],
+      required: [true, 'product must have a description'],
       trim: true,
     },
     offer: {
@@ -35,25 +35,25 @@ const productSchema = new mongoose.Schema(
       },
     ],
 
-    // reviews: [
-    //   {
-    // userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    // review: String,
-    //   },
-    // ],
-    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-    // createdBy: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    // },
+    reviews: [
+      {
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        review: String,
+      },
+    ],
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
     createdBy: String,
     updatedAt: Date,
   },
   { timestamps: true }
 );
 
-productSchema.pre("save", function (next) {
+productSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model('Product', productSchema);

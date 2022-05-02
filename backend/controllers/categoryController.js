@@ -1,5 +1,5 @@
-const Category = require("./../models/categoryModel");
-const catchAsync = require("../utilities/catchAsync");
+const Category = require('./../models/categoryModel');
+const catchAsync = require('../utilities/catchAsync');
 
 //* nested categories
 function createCategories(categories, parentId = null) {
@@ -28,10 +28,14 @@ exports.createCategory = catchAsync(async (req, res, next) => {
     name: req.body.name,
   };
 
+  if (req.file) {
+    categoryObj.categoryImage = `${process.env.SERVER_API}/public/${req.file.filename}`;
+  }
+
   if (req.body.parentId) {
     categoryObj.parentId = req.body.parentId;
   }
-  console.log("Iam here");
+  console.log('Iam here');
   const newCategory = await Category.create(categoryObj);
 
   res.status(201).json({

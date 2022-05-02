@@ -15,12 +15,12 @@ const SignInCourse = () => {
   });
 
   const { email, password, buttonText } = data;
-
+  const isAuth = isAuthenticated();
   useEffect(() => {
-    if (isAuthenticated()) {
+    if (isAuth) {
       navigate("/");
     }
-  }, [isAuthenticated(), navigate]);
+  }, [isAuth, navigate]);
   const handelChange = (name) => (e) => {
     setData({ ...data, [name]: e.target.value });
   };

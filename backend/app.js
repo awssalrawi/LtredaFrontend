@@ -10,7 +10,8 @@ const cors = require('cors');
 const env = require('dotenv');
 env.config({ path: 'backend/.env' });
 app.use(express.json());
-
+const path = require('path'); //*to be able to find ve main path
+app.use('/public', express.static(path.join(__dirname, 'uploads'))); //*__dirname give as backend folder
 app.use(morgan('tiny'));
 //app.use(cors());  allow access to api from all domains
 if (process.env.NOD_ENV === 'DEVELOPMENT') {

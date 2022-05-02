@@ -1,9 +1,9 @@
-const catchAsync = require("../utilities/catchAsync");
-const Product = require("../models/productModel");
+const catchAsync = require('../utilities/catchAsync');
+const Product = require('../models/productModel');
 
 //* create new product   /api/v1/products/create
 exports.createProduct = catchAsync(async (req, res, next) => {
-  const { name, price, description, category, createdBy, quantity } = req.body;
+  const { name, price, description, category, quantity } = req.body;
   let productPictures = [];
   if (req.files.length > 0) {
     productPictures = req.files.map((file) => {
@@ -20,7 +20,7 @@ exports.createProduct = catchAsync(async (req, res, next) => {
     productPictures,
     category,
     quantity,
-    createdBy,
+    createdBy: req.auth._id,
   });
   res.status(200).json({
     success: true,

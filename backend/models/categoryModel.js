@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const slugify = require("slugify");
+const mongoose = require('mongoose');
+const slugify = require('slugify');
 const categorySchema = new mongoose.Schema(
   {
     name: {
@@ -12,12 +12,13 @@ const categorySchema = new mongoose.Schema(
       unique: true,
     },
     parentId: { type: String },
+    categoryImage: { type: String },
   },
   { timestamps: true }
 );
 
-categorySchema.pre("save", function (next) {
+categorySchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
-module.exports = mongoose.model("Category", categorySchema);
+module.exports = mongoose.model('Category', categorySchema);

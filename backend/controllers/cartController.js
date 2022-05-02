@@ -1,12 +1,60 @@
-const catchAsync = require("../utilities/catchAsync");
-const Cart = require("../models/cartModel");
+const catchAsync = require('../utilities/catchAsync');
+const Cart = require('../models/cartModel');
 
 exports.addItemToCart = catchAsync(async (req, res, next) => {
-  const cartItems = req.body.cartItems;
+  console.log('req', req.body.cartItems.product.toString());
+  // const isItemExists = await Cart.findOne({cartItems.product===req.cartItems.product})
+  let addedItems;
+  const isCartExists = await Cart.findOne({ user: req.auth._id });
+  if (isCartExists) {
+    const isItemAlreadyAdded = isCartExists.cartItems.find(
+      (cartItem) =>
+        cartItem.product.toString() === req.body.cartItems.product.toString()
+    );
 
-  const addedItems = await Cart.create({ cartItems });
+    if (isItemAlreadyAdded) {
+      console.log('inside second if');
+      addedItems = await Cart.findOneAndUpdate(
+        {
+          user: req.auth._id,
+          'cartItems.product': req.body.cartItems.product,
+        },
+        {
+          $set: {
+            'cartItems.$': {
+              ...req.body.cartItems,
+              quantity: isItemAlreadyAdded.quantity * 1 + 1,
+            },
+          },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+    } else {
+      addedItems = await Cart.findOneAndUpdate(
+        { user: req.auth._id },
+        {
+          $push: {
+            cartItems: req.body.cartItems,
+          },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+    }
+  } else {
+    const cartItems = [req.body.cartItems];
+    addedItems = await Cart.create({ user: req.auth._id, cartItems });
+    console.log('Iam inside else');
+  }
+
   res.status(201).json({
-    message: "card",
+    message: 'card',
     data: addedItems,
+    // data: addedItems,
   });
 });

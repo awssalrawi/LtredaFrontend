@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const sendEmail = require('../utilities/sendEmail');
 const sendEmailWithSIB = require('../utilities/SIBEmail');
 const { promisify } = require('util');
+const { expressjwt } = require('express-jwt');
 
 //* Signup user with email and password /api/v1/user/signup
 
@@ -24,29 +25,29 @@ exports.signupWithEmailAndPassword = catchAsync(async (req, res, next) => {
     { expiresIn: '10m' }
   );
 
-  // const activateEmailContent = {
-  //   email,
-  //   subject: 'Activate account',
-  //   message: `
-  //   <p>Please use this link to activate your account</p>
-  //   <p>${process.env.CLIENT_URL}/user/active-account/${temporaryToken}</p>
-  //   <hr/>
-  //   <h5>This email my contain sensitive information</h5>
-  //   <p>${process.env.CLIENT_URL}</p>
-  //   `,
-  // };
-
-  //*try
-  const options = {
-    name,
+  const activateEmailContent = {
     email,
-    templateId: 1,
-    link: `${process.env.CLIENT_URL}/user/active-account/${temporaryToken}`,
+    subject: 'Activate account',
+    message: `
+    <p>Please use this link to activate your account</p>
+    <p>${process.env.CLIENT_URL}/user/active-account/${temporaryToken}</p>
+    <hr/>
+    <h5>This email my contain sensitive information</h5>
+    <p>${process.env.CLIENT_URL}</p>
+    `,
   };
-  await sendEmailWithSIB(options);
+
+  //*try
+  // const options = {
+  //   name,
+  //   email,
+  //   templateId: 1,
+  //   link: `${process.env.CLIENT_URL}/user/active-account/${temporaryToken}`,
+  // };
+  //! await sendEmailWithSIB(options);  //for real word email
   //*try
 
-  // await sendEmail(activateEmailContent);
+  await sendEmail(activateEmailContent); //! for development purposes
   //*I think I should change user schema method later
   // await User.create({ name, email, password });
 
@@ -93,6 +94,8 @@ exports.signInWithEmailAndPassword = catchAsync(async (req, res, next) => {
       )
     );
 
+  user.hashed_password = undefined;
+  user.salt = undefined;
   const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
@@ -107,3 +110,30 @@ exports.signInWithEmailAndPassword = catchAsync(async (req, res, next) => {
   });
 });
 //*r
+
+exports.getUserById = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return next(new Error('There is no user data', 404));
+
+  res.status(200).json({
+    user,
+  });
+});
+//*Restrict
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles is an array
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      ); //403:forbidden
+    }
+    next();
+  };
+};
+
+//*middleware for sign in ..this is built in auth course
+exports.requireSignIn = expressjwt({
+  secret: 'i-am-awss-and-i-have-a-crazy-dreams',
+  algorithms: ['HS256'],
+});

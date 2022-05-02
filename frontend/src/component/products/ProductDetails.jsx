@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import "./style/productDetails.scss";
 import ProductImagesSlider from "../utilis/ProductImagesSlider";
+import { Link } from "react-router-dom";
 import { productImages } from "./../../assests/exp";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -119,10 +120,10 @@ const ProductDetails = () => {
                   +
                 </button>
               </div>
-              <button className="addToCard-btn">
+              <Link to="/activate" className="addToCard-btn">
                 <CardIcon className="card-icon" />
                 <p className="button-text">add to card</p>
-              </button>
+              </Link>
             </div>
 
             <div className="info-part__description">
