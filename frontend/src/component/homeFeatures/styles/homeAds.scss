@@ -1,16 +1,3 @@
-html {
-  font-size: 65.5%;
-
-  @media all and (max-width: 600px) {
-    font-size: 50%;
-  }
-}
-@media all and(max-width:1000px) {
-  #stocks-show {
-    display: none;
-  }
-}
-
 .ads {
   z-index: 5;
   flex: 1;

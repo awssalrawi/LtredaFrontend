@@ -27,7 +27,7 @@
     align-items: center;
     justify-content: center;
     &__input {
-      font-family: "Open Sans", sans-serif; //*inside input doesn't inherit automatically
+      font-family: 'Open Sans', sans-serif; //*inside input doesn't inherit automatically
       font-size: 16px;
       color: #000000 !important;
       background-color: #eee;
@@ -71,10 +71,25 @@
 
 //*user navigation
 .user-nav {
-  &__loginBtnStyle {
+  &__login-shape {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+    margin-right: 1rem;
     text-decoration: none;
-    color: inherit;
+
+    &-button {
+      text-decoration: none;
+      color: #343434;
+      font-size: 1.6rem;
+      &:hover {
+        color: #000;
+      }
+    }
   }
+
   align-self: stretch;
   display: flex;
   justify-content: space-between;
@@ -94,38 +109,42 @@
 
   &__icon-box {
     position: relative;
+    .cart-icon {
+      height: 50%;
+      width: fit-content;
+      color: #6e5144;
+      fill: #fff;
+    }
+
+    .cart-notification {
+      font-size: 1.2rem;
+      height: 1.75rem;
+      width: 1.75rem;
+      border-radius: 50%;
+      // background-color: #ff0000;
+      text-align: center;
+      color: #000000;
+      position: absolute;
+      // top: 0.8rem;
+      // right: 1.5rem;
+      top: 26px;
+      left: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   &__icon {
     color: #6e5144;
     font-size: 25px;
   }
-  &__notification {
-    font-size: 1rem;
-    height: 1.75rem;
-    width: 1.75rem;
-    border-radius: 50%;
-    // background-color: var(--color-primary);
-    background-color: #ff0000;
-    text-align: center;
-    color: #fff;
-    position: absolute;
-    top: 0.8rem;
-    right: 1.5rem;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  // &__user {
-  //   position: relative;
-  // }
   &__user-photo {
     height: 3.75rem;
     border-radius: 50%;
     margin-right: 1rem;
   }
-  //   &__user-name {
-  //   }
+
   &__scrol {
     height: 100%;
     padding: 0 1rem;
@@ -169,67 +188,6 @@
   .header {
     display: none !important;
   }
-
-  // .header {
-  //   margin: 0px auto;
-  //   font-size: 1.4rem;
-  //   height: 5rem;
-  //   border-bottom: #f4f2f2;
-  //   background-color: #e0dfdf;
-  //   // background-color: #d3c7cb;
-  //   display: flex;
-  //   flex-direction: row;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   margin-bottom: 1.2rem;
-  //   box-shadow: 0 5px 5px #a5a5a580;
-  //   .search {
-  //     flex: 0 0 56%;
-  //     display: flex;
-  //     align-items: center;
-  //     justify-content: center;
-  //     &__input {
-  //       font-family: "Open Sans", sans-serif; //*inside input doesn't inherit automatically
-  //       font-size: 10px;
-  //       color: #000000 !important;
-  //       background-color: #eee;
-  //       border: none;
-  //       padding: 0.7rem 1rem;
-  //       border-radius: 12rem;
-  //       width: 83%;
-  //       transition: all 0.2s;
-  //       margin-right: -3.25rem;
-  //       &:focus {
-  //         outline: none;
-  //         width: 90%;
-  //         background-color: #f0eeee;
-  //       }
-  //       &::-webkit-input-placeholder {
-  //         //*only work with chrome and safari
-  //         font-weight: 100;
-  //         color: #ccc;
-  //       }
-  //     }
-  //     &__input:focus + &__button {
-  //       background-color: #f0eeee;
-  //     }
-  //     &__button {
-  //       border: none;
-  //       background-color: #eee;
-  //       border-radius: 100px;
-  //       &:focus {
-  //         outline: none;
-  //       }
-  //       &:active {
-  //         transform: translateY(2px);
-  //       }
-  //     }
-  //   }
-  // }
-  // .logo {
-  //   height: 7rem;
-  //   margin-left: -2rem;
-  // }
 
   #phone-footer-nav {
     display: flex;

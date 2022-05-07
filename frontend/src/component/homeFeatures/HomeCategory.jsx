@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import "./styles/homeCategory.scss";
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import './styles/homeCategory.scss';
 const HomeCategory = () => {
   return (
     <Fragment>
@@ -13,7 +13,7 @@ const HomeCategory = () => {
         <nav className="category__list">
           <ul className="side-nav">
             <li className="side-nav__item">
-              <Link to="#" className="side-nav__link">
+              <Link to="/test" className="side-nav__link">
                 <i className="fa-solid fa-gem"></i>
                 <span className="item-name">Accessories</span>
               </Link>
@@ -46,6 +46,11 @@ const HomeCategory = () => {
               <Link to="#" className="side-nav__link">
                 <i className="fa-solid fa-bolt"></i>
                 <span className="item-name">Electronics</span>
+              </Link>
+            </li>
+            <li className="side-nav__item">
+              <Link to="/categories" className="side-nav__link">
+                Show all Categories...
               </Link>
             </li>
           </ul>

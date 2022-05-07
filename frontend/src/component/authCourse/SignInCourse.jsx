@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import "./toast-my-style.scss";
+import "../../assests/toast-my-style.scss";
 import { authenticate, isAuthenticated } from "./helperCourse";
 
 const SignInCourse = () => {

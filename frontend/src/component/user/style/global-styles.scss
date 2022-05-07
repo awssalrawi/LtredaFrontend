@@ -1,0 +1,37 @@
+.generalBtn {
+  width: 100%;
+  color: #e7e7e7;
+  border: none;
+  outline: none;
+  padding: 3px 0;
+  border-radius: 10px;
+  font-weight: 400;
+  transition: all 0.3s;
+  font-size: 1.6rem;
+  position: relative;
+}
+
+.googleBtn {
+  background-color: #dc4e41;
+  &:hover {
+    background-color: darken($color: #dc4e41, $amount: 10%);
+  }
+}
+
+.faceBtn {
+  background-color: #3c5a99;
+  &:hover {
+    background-color: darken($color: #3c5a99, $amount: 10%);
+  }
+}
+
+.googleIcon {
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-right: 10px;
+}
+.faceIcon {
+  width: 2.6rem;
+  height: 3.4rem;
+  margin-right: 8px;
+}

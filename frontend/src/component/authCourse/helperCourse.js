@@ -1,4 +1,4 @@
-import cookie from "js-cookie";
+import cookie from 'js-cookie';
 
 //*set in cookie
 export const setCookie = (key, value) => {
@@ -36,17 +36,17 @@ export const removeLocalStorage = (key) => {
 };
 //*authenticate user by passing data to cookie and local storage during sign in
 export const authenticate = (response, next) => {
-  setCookie("token", response.data.token);
-  setLocalStorage("user", response.data.user);
+  setCookie('token', response.data.token);
+  setLocalStorage('user', response.data.user);
   next();
 };
 //*access user info from local storage
 export const isAuthenticated = () => {
   if (window !== undefined) {
-    const cookieChecked = getCookie("token");
+    const cookieChecked = getCookie('token');
     if (cookieChecked) {
-      if (localStorage.getItem("user")) {
-        return JSON.parse(localStorage.getItem("user"));
+      if (localStorage.getItem('user')) {
+        return JSON.parse(localStorage.getItem('user'));
       }
       return false;
     }
@@ -54,7 +54,7 @@ export const isAuthenticated = () => {
 };
 //*sign user out from local storage
 export const signUpCurrentUser = (next) => {
-  removeCookie("token");
-  removeLocalStorage("user");
+  removeCookie('token');
+  removeLocalStorage('user');
   next();
 };

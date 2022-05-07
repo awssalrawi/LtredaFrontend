@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import "./inputField.scss";
+import "./styles/inputField.scss";
 
 const InputField = ({ type, placeholder, name, children, ...otherProps }) => {
   return (

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
-import "./productImagesSlider.scss";
+import "./styles/productImagesSlider.scss";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, Pagination } from "swiper";

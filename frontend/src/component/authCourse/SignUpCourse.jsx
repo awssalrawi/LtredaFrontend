@@ -3,7 +3,7 @@ import React, { Fragment, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import "./toast-my-style.scss";
+import "../../assests/toast-my-style.scss";
 
 const SignUpCourse = () => {
   //const navigate = Navigate();

@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const res = require('express/lib/response');
-
+const { isAuthenticatedUser } = require('../utilities/authMiddlewares');
 const {
   signupWithEmailAndPassword,
   activateAccountByEmailLink,
   signInWithEmailAndPassword,
   getUserById,
-  requireSignIn,
+  LogoutUser,
+  googleLogin,
+  facebookLogin,
 } = require('../controllers/authController');
 const {
   userSignUpValidator,
@@ -28,16 +30,16 @@ router.post(
 
 router.post('/active-account', activateAccountByEmailLink);
 //*Sign in using email and password
-router.post(
-  '/signin',
-  userSignInValidator,
-  runValidator,
-  signInWithEmailAndPassword
-);
+router.post('/signin', signInWithEmailAndPassword);
+router.route('/logout').get(LogoutUser);
+router.get('/me', isAuthenticatedUser, getMyProfileData);
 
-router.get('/forx', requireSignIn, getMyProfileData);
-//router.get('/me', getMyProfileData);
-router.route('/get-all-users').get(requireSignIn, getAllUsers);
+router.route('/get-all-users').get(isAuthenticatedUser, getAllUsers);
+
+//! google and facebook routes
+router.post('/google-login', googleLogin);
+
+router.post('/facebook-login', facebookLogin);
 
 router.route('/:id').get(getUserById);
 // router.get('/:id', getUserById);

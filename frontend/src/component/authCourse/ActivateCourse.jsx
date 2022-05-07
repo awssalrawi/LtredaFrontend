@@ -1,35 +1,35 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from 'react';
 //import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { ToastContainer, toast, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
-import "./toast-my-style.scss";
-import { useParams } from "react-router-dom";
+import axios from 'axios';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import '../../assests/toast-my-style.scss';
+import { useParams } from 'react-router-dom';
 //import jwt from "jsonwebtoken";
-import jwtDecode from "jwt-decode";
+import jwtDecode from 'jwt-decode';
 const ActivateCourse = () => {
   const [data, setData] = useState({
-    name: "",
-    token: "",
+    name: '',
+    token: '',
     show: true,
   });
 
   const { name, token, show } = data;
   const params = useParams();
-  useEffect(() => {
-    let token = params.token;
-    let { name } = jwtDecode(token);
-    setData({ ...data, name, token });
-    console.log("Token", token);
-  }, []);
+  // useEffect(() => {
+  //   let token = params.token;
+  //   let { name } = jwtDecode(token);
+  //   setData({ ...data, name, token });
+  //   console.log("Token", token);
+  // }, []);
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    setData({ ...data, buttonText: "Submitting..." });
+    setData({ ...data, buttonText: 'Submitting...' });
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
     console.log(data);
@@ -39,13 +39,13 @@ const ActivateCourse = () => {
         setData({
           ...data,
 
-          buttonText: "Submitted",
+          buttonText: 'Submitted',
         });
-        console.log("Signin process", res);
+        console.log('Signin process', res);
         toast.success(res.data.message);
       })
       .catch((e) => {
-        setData({ ...data, buttonText: "Submit" });
+        setData({ ...data, buttonText: 'Submit' });
 
         toast.error(e.response.data.message || e.response.data.error);
         console.log(e);

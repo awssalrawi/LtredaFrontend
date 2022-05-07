@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import "./customButton.scss";
+import "./styles/customButton.scss";
 
 const CustomButton = ({ color, children, ...otherProps }) => {
   return (

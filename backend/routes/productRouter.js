@@ -3,7 +3,10 @@ const router = express.Router();
 const multer = require('multer');
 const shortid = require('shortid');
 const { createProduct } = require('../controllers/productController');
-const { requireSignIn, restrictTo } = require('../controllers/authController');
+const {
+  restrictTo,
+  isAuthenticatedUser,
+} = require('../utilities/authMiddlewares');
 const path = require('path');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -17,7 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 router.post(
   '/products/create',
-  requireSignIn,
+  isAuthenticatedUser,
   upload.array('ProductPicture'),
   createProduct
 );
